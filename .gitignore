@@ -6,3 +6,4 @@ target/
 .metadata
 .DS_Store
 Servers/
+nodes_modules
