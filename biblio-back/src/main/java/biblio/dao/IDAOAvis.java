@@ -1,5 +1,9 @@
 package biblio.dao;
 
-public interface IDAOAvis extends JpaUserDetailsService<Avis, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import biblio.model.Avis;
+
+public interface IDAOAvis extends JpaRepository<Avis, Integer> {
 
 }
