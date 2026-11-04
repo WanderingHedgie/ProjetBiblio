@@ -1,1 +1,10 @@
-export interface Livre {}
+import { Auteur} from "./auteur";
+import { Collection } from "./collection";
+
+export interface Livre {
+    titre: string;
+    resume: string;
+    annee: number;
+    auteur: Auteur;
+    collection?: Collection;
+}
