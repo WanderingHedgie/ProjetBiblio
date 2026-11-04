@@ -1,5 +1,4 @@
 import { Auteur} from "./auteur";
-import { Collection } from "./collection";
 
 export interface Livre {
     titre: string;
