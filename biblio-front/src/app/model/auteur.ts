@@ -1,1 +1,5 @@
-export interface Auteur {}
+export interface Auteur {
+    nom: string;
+    prenom: string;
+    nationalite: string;
+}

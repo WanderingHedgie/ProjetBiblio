@@ -1,1 +1,3 @@
-export interface Collection {}
+export interface Collection {
+    nom: string;
+}
