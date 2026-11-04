@@ -1,5 +1,9 @@
 package biblio.dao;
 
-public interface IDAOLivre extends JpaUserDetailsService<Livre, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import biblio.model.Livre;
+
+public interface IDAOLivre extends JpaRepository<Livre, Integer> {
 
 }
