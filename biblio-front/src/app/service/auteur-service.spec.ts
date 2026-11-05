@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { Auteur } from './auteur';
+imoport {AuteurService} from './auteur-service'
 
-describe('Auteur', () => {
-  let service: Auteur;
+describe('AuteurService', () => {
+  let service: AuteurService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(Auteur);
+    service = TestBed.inject(AuteurService);
   });
 
   it('should be created', () => {
