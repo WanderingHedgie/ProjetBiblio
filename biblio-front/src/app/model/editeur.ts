@@ -1,4 +1,5 @@
 export interface Editeur {
-    nom: string;
-    pays: string;
+  id?: number;
+  nom: string;
+  pays: string;
 }

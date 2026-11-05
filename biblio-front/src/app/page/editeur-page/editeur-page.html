@@ -1,1 +1,53 @@
-<p>editeur-page works!</p>
+<h1>Liste des éditeurs</h1>
+
+<form (submit)="ajouterOuModifier()" [formGroup]="formEditeurGroup">
+  <div>
+    <input type="text" placeholder="Nom" [formControl]="formEditeurNomCtrl" />
+  </div>
+
+  @if (formEditeurNomCtrl.dirty && formEditeurNomCtrl.hasError('required')) {
+    <div>
+      Le nom est obligatoire !
+    </div>
+  }
+
+  <div>
+    <input type="text" placeholder="Pays" [formControl]="formEditeurPaysCtrl" />
+  </div>
+
+  @if (formEditeurPaysCtrl.dirty && formEditeurPaysCtrl.hasError('required')) {
+    <div>
+      Le pays est obligatoire !
+    </div>
+  }
+
+  <div>
+    <button [disabled]="formEditeurGroup.invalid" type="submit">Ajouter</button>
+    <button type="button" (click)="annulerEdition()">Annuler</button>
+  </div>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Pays</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (editeur of (editeurs$ | async); track editeur.id) {
+      <tr>
+        <td>{{ editeur.id }}</td>
+        <td>{{ editeur.nom }}</td>
+        <td>{{ editeur.pays }}</td>
+        <td>
+          <button (click)="editer(editeur)">Editer</button>
+          <button (click)="supprimer(editeur)">Supprimer</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
