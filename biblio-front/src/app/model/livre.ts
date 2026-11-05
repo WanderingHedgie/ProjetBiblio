@@ -1,4 +1,4 @@
-import { Editeur } from "../service/editeur";
+import { Editeur } from "./editeur";
 import { Auteur} from "./auteur";
 import { Collection } from "./collection";
 
