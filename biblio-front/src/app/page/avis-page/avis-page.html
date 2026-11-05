@@ -1,1 +1,93 @@
-<p>avis-page works!</p>
+<h1>Liste des avis</h1>
+
+<form (submit)="ajouterOuModifier()" [formGroup]="formAvisGroup" class="form-container">
+
+  <!-- <div class="form-field">
+    <label for="note">Note</label>
+    <input
+    name="note"
+    type="number"
+    [formControl]="formAvisNoteControl">
+  </div> -->
+
+  <!-- <div class="form-field">
+    <label for="comment">Commentaire</label>
+    <input
+    name="comment"
+    type="text"
+    [formControl]="formAvisCommentControl"
+    placeholder="Insérer commentaire">
+  </div> -->
+
+  <!-- <div class="form-field">
+    <label for="note">Date</label>
+    <input
+    name="note"
+    type="date"
+    [formControl]="formAvisDateControl">
+  </div> -->
+
+  <div class="form-field">
+    <label for="livres">Livres</label>
+    <select
+    name="livre"
+    [formControl]="formAvisLivreControl"
+    [compareWith]="compareLivres">
+
+    <option [ngValue]="undefined">-Choisir une salle-</option>
+
+    @for (livre of (livres$ | async); track livre.titre) {
+      <option [ngValue]="livre">
+        {{ livre.auteur }} - {{ livre.titre }}
+      </option>
+    }
+
+  </select>
+</div>
+
+<div class="form-actions">
+  <input
+  type="submit"
+  [class]="editingAvisId? 'btn-edit' : 'btn-add'"
+  [value]="editingAvisId? 'Modifier' : 'Ajouter'">
+
+  @if (editingAvisId != null) {
+    <input
+    type="button"
+    class="btn-cancel"
+    (click)="annulerEdition()"
+    value="Annuler">
+  }
+</div>
+
+</form>
+
+
+<table>
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Note</td>
+      <td>Commentaire</td>
+      <td>Date</td>
+      <td>Livre</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+
+    @for (avis of (avis$ | async ); track avis.id) {
+      <tr>
+        <td>{{ avis.id }}</td>
+        <td>{{ avis.note }}</td>
+        <td>{{ avis.comment }}</td>
+        <td>{{ avis.date }}</td>
+        <td>{{ avis.livre.auteur }} - {{ avis.livre.titre }}</td>
+        <td>
+          <button (click)="editer(avis)">Editer</button>
+          <button (click)="supprimer(avis)">Supprimer</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
