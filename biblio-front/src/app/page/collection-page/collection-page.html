@@ -1,1 +1,41 @@
-<p>collection-page works!</p>
+<h1>Liste des collections</h1>
+
+<form (submit)="ajouterOuModifier()" [formGroup]="formCollectionGroup">
+  <div>
+    <input type="text" placeholder="Nom" [formControl]="formCollectionNomCtrl" />
+  </div>
+
+  @if (formCollectionNomCtrl.dirty && formCollectionNomCtrl.hasError('required')) {
+    <div>
+      Le nom est obligatoire !
+    </div>
+  }
+
+  <div>
+    <button [disabled]="formCollectionGroup.invalid" type="submit">Ajouter</button>
+    <button type="button" (click)="annulerEdition()">Annuler</button>
+  </div>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (collection of (collections$ | async); track collection.id) {
+      <tr>
+        <td>{{ collection.id }}</td>
+        <td>{{ collection.nom }}</td>>
+        <td>
+          <button (click)="editer(collection)">Editer</button>
+          <button (click)="supprimer(collection)">Supprimer</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

@@ -1,1 +1,107 @@
-<p>livre-page works!</p>
+<h1>Liste des livres</h1>
+
+<form (submit)="ajouterOuModifier()" [formGroup]="'formLivreGroup">
+    
+    <!-- Titre -->
+    <div>
+        <input type="text" placeholder="Titre" [formControl]="formLivreTitreCtrl" />
+    </div>
+    
+    @if (formLivreTitreCtrl.dirty && formLivreTitreCtrl.hasError('required')) {
+        <div>
+            Le titre est obligatoire !
+        </div>
+    }
+    
+    <!-- Resume -->
+    <div>
+        <input type="text" placeholder="Resume" [formControl]="formLivreResumeCtrl" />
+    </div>
+    
+    @if (formLivreResumeCtrl.dirty && formLivreResumeCtrl.hasError('required')) {
+        <div>
+            Le résumé est obligatoire !
+        </div>
+    }
+    
+    <!-- Annee -->
+    <div>
+        <input type="number" placeholder="Annee" [formControl]="formLivreAnneeCtrl" />
+    </div>
+    
+    @if (formLivreAnneeCtrl.dirty && formLivreAnneeCtrl.hasError('required')) {
+        <div>
+            L'année est obligatoire !
+        </div>
+    }
+    
+    <!-- Auteur -->
+    <div>
+        <input type="text" placeholder="Auteur" [formControl]="formLivreAuteurCtrl" />
+    </div>
+    
+    @if (formLivreAuteurCtrl.dirty && formLivreAuteurCtrl.hasError('required')) {
+        <div>
+            L'auteur est obligatoire !
+        </div>
+    }
+    
+    <!-- Editeur -->
+    <div>
+        <input type="text" placeholder="Editeur" [formControl]="formLivreEditeurCtrl" />
+    </div>
+    
+    @if (formLivreEditeurCtrl.dirty && formLivreEditeurCtrl.hasError('required')) {
+        <div>
+            L'éditeur est obligatoire !
+        </div>
+    }
+    
+    <!-- Collection -->
+    <div>
+        <input type="text" placeholder="Collection" [formControl]="formLivreCollectionCtrl" />
+    </div>
+    
+    @if (formLivreCollectionCtrl.dirty && formLivreCollectionCtrl.hasError('required')) {
+        <div>
+            La collection est obligatoire !
+        </div>
+    }
+    
+    <div>
+        <button [disabled]="formLivreGroup.invalid" type="submit">Ajouter</button>
+        <button type="button" (click)="annulerEdition()">Annuler</button>
+    </div>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Résumé</th>
+            <th>Année</th>
+            <th>Auteur</th>
+            <th>Editeur</th>
+            <th>Collection</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        @for (livre of (livres$ | async); track livre.id) {
+            <tr>
+                <td>{{livre.id}}</td>
+                <td>{{livre.titre}}</td>
+                <td>{{livre.resume}}</td>
+                <td>{{livre.annee}}</td>
+                <td>{{livre.auteur}}</td>
+                <td>{{livre.editeur}}</td>
+                <td>{{livre.collection}}</td>
+                <td>
+                    <button (click)="editer(editeur)">Editer</button>
+                    <button (click)="supprimer(editeur)">Supprimer</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
