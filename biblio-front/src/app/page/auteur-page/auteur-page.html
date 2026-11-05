@@ -1,1 +1,64 @@
-<p>auteur-page works!</p>
+<h1>Liste des auteurs</h1>
+
+<form (submit)="ajouterOuModifier()" [formGroup]="formAuteurGroup">
+  <div>
+    <input type="text" placeholder="Nom" [formControl]="formAuteurNomCtrl" />
+  </div>
+
+  @if (formAuteurNomCtrl.dirty && formAuteurNomCtrl.hasError('required')) {
+    <div>Le nom est obligatoire !</div>
+  }
+
+  <div>
+    <input type="text" placeholder="Prénom" [formControl]="formAuteurPrenomCtrl" />
+  </div>
+
+  @if (formAuteurPrenomCtrl.dirty && formAuteurPrenomCtrl.hasError('required')) {
+    <div>Le prénom est obligatoire !</div>
+  }
+
+  <div>
+    <input type="text" placeholder="Nationalité" [formControl]="formAuteurNationaliteCtrl" />
+  </div>
+
+  @if (formAuteurNationaliteCtrl.dirty && formAuteurNationaliteCtrl.hasError('required')) {
+    <div>La nationalité est obligatoire !</div>
+  }
+
+  <div>
+    <button [disabled]="formAuteurGroup.invalid" type="submit">
+      {{ editingAuteurId ? 'Modifier' : 'Ajouter' }}
+    </button>
+
+    @if (editingAuteurId) {
+      <button type="button" (click)="annulerEdition()">Annuler</button>
+    }
+  </div>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Nationalité</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (auteur of (auteurs$ | async); track auteur.id) {
+      <tr>
+        <td>{{ auteur.id }}</td>
+        <td>{{ auteur.nom }}</td>
+        <td>{{ auteur.prenom }}</td>
+        <td>{{ auteur.nationalite }}</td>
+        <td>
+          <button (click)="editer(auteur)">Editer</button>
+          <button (click)="supprimer(auteur)">Supprimer</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
