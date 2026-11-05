@@ -1,5 +1,6 @@
 export interface Auteur {
-    nom: string;
-    prenom: string;
-    nationalite: string;
+  id?: number;
+  nom: string;
+  prenom: string;
+  nationalite: string;
 }
