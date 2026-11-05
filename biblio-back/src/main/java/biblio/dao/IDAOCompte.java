@@ -1,5 +1,9 @@
 package biblio.dao;
 
-public interface IDAOCompte extends JpaUserDetailsService<Compte, Integer>{
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import biblio.model.Compte;
+
+public interface IDAOCompte extends JpaRepository<Compte, Integer>{
 
 }

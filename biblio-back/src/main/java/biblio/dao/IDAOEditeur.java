@@ -1,5 +1,8 @@
 package biblio.dao;
 
-public interface IDAOEditeur extends JpaUserDetailsService<Editeur, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import biblio.model.Editeur;
+
+public interface IDAOEditeur extends JpaRepository<Editeur, Integer> {
 }
