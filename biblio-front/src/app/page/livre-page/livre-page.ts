@@ -16,7 +16,7 @@ import { LivreService } from '../../service/livre-service';
 })
 export class LivrePage implements OnInit {
   
-  protected livre$!: Observable<Livre[]>;
+  protected livres$!: Observable<Livre[]>;
   private refresh$: Subject<void> = new Subject<void>();
   
   protected editingLivreId?: number;
@@ -54,7 +54,7 @@ export class LivrePage implements OnInit {
       collection: this.formLivreCollectionCtrl
     });
     
-    this.livre$ = this.refresh$.pipe(
+    this.livres$ = this.refresh$.pipe(
       startWith(null),
       switchMap(() => {
         return this.livreService.findAll();
