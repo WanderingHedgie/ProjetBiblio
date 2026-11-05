@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
-//J ai pas fait les imports je vous montrerai
+import { Component, OnInit } from '@angular/core';
+import { Observable, startWith, Subject, switchMap } from 'rxjs';
+import { Collection } from '../../model/collection';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { Title } from '@angular/platform-browser';
+import { CollectionService } from '../../service/collection';
+
 
 @Component({
   imports: [ ReactiveFormsModule, AsyncPipe],
