@@ -1,10 +1,58 @@
 package biblio.restcontroller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import biblio.dao.IDAOAvis;
+import biblio.model.Avis;
 
 @RestController 
 @RequestMapping("/api/avis")
 public class AvisRestController {
+    
+    private final IDAOAvis daoAvis;
 
+    AvisRestController(IDAOAvis daoAvis) {
+        this.daoAvis = daoAvis;
+    }
+    
+    @GetMapping
+    public List<Avis> afficherTous()
+    {
+        return daoAvis.findAll();
+    }
+    
+    @GetMapping("/{id}")
+    public Avis afficherParId(@PathVariable Integer id)
+    {
+        return daoAvis.findById(id).orElse(null);
+    }
+    
+    @DeleteMapping("/{id}")
+    public void supprimer(@PathVariable Integer id)
+    {
+        daoAvis.deleteById(id);
+    }
+    
+    @PostMapping
+    public Avis ajouter(@RequestBody Avis avis)
+    {
+        return daoAvis.save(avis);
+    }
+    
+    @PutMapping("/{id}")
+    public Avis modifier(@PathVariable Integer id, @RequestBody Avis avis)
+    {
+        avis.setId(id);
+        daoAvis.save(avis);
+        return avis;
+    }
 }
