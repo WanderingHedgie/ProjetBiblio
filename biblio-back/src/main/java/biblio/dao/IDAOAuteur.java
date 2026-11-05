@@ -1,5 +1,9 @@
 package biblio.dao;
 
-public interface IDAOAuteur extends JpaUserDetailsService<Auteur, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import biblio.model.Auteur;
+
+public interface IDAOAuteur extends JpaRepository<Auteur, Integer> {
 
 }
