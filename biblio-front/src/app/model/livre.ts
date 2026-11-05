@@ -1,3 +1,4 @@
+import { Editeur } from "../service/editeur";
 import { Auteur} from "./auteur";
 import { Collection } from "./collection";
 
@@ -6,5 +7,6 @@ export interface Livre {
     resume: string;
     annee: number;
     auteur: Auteur;
+    editeur: Editeur;
     collection?: Collection;
 }
