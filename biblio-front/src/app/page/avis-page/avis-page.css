@@ -1,0 +1,264 @@
+/* ===== Conteneur principal ===== */
+
+:host {
+  display: block;
+  max-width: 1200px;
+  margin: 3em auto;
+  padding: 2em;
+  background: #f0f7f6;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px #00000010;
+}
+
+h1 {
+  color: teal;
+  margin-top: 0;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid #c5e0dc;
+}
+
+
+/* ===== Tableau ===== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background: teal;
+  color: white;
+  padding: 1em;
+  text-align: left;
+  font-weight: 600;
+}
+
+th:last-child {
+  text-align: center;
+}
+
+td {
+  padding: 0.8em 1em;
+  border-bottom: 1px solid #e0eeeb;
+  color: #445;
+}
+
+td:last-child {
+  white-space: nowrap;
+  width: 1%;
+}
+
+tbody tr:nth-child(even) {
+  background: #f0f7f6;
+}
+
+tbody tr:hover {
+  background: #d5ebe7;
+}
+
+
+/* ===== Boutons : style commun ===== */
+
+input[type="button"] {
+  appearance: none;
+  padding: 0.7em 1.2em;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #445;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+input[type="button"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px #00000015;
+}
+
+input[type="button"]:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+input[type="button"]:focus-visible {
+  outline: 2px solid teal;
+  outline-offset: 2px;
+}
+
+.error-message {
+  padding: 0.8em 1em;
+  margin-top: 1em;
+  background: #fce8e6;
+  color: #a93226;
+  border: 1px solid #f5ccc7;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+
+/* ===== Bouton Modifier ===== */
+
+input[type="button"].btn-edit {
+  background: #b0d9d1;
+  color: #006666;
+}
+
+input[type="button"].btn-edit:hover {
+  background: #b8ddd6;
+}
+
+
+/* ===== Bouton Supprimer ===== */
+
+input[type="button"].btn-delete {
+  background: #fce8e6;
+  color: #a93226;
+}
+
+input[type="button"].btn-delete:hover {
+  background: #f5ccc7;
+}
+
+
+/* ===== Bouton Ajouter ===== */
+
+input[type="button"].btn-add {
+  background: #d9f0df;
+  color: #246b43;
+}
+
+input[type="button"].btn-add:hover {
+  background: #bce3c7;
+}
+
+
+/* ===== Bouton Annuler ===== */
+
+input[type="button"].btn-cancel {
+  background: #e3e8ed;
+  color: #526475;
+}
+
+input[type="button"].btn-cancel:hover {
+  background: #cdd6df;
+}
+
+
+/* ===== Boutons du tableau ===== */
+
+td input[type="button"] {
+  margin: 0.2em;
+}
+
+
+/* ===== Formulaire d'ajout / modification ===== */
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 1em;
+  align-items: end;
+  padding: 1.5em;
+  background: #e2f0ed;
+  border-radius: 8px;
+}
+
+/* Conteneur individuel d'un champ */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  min-width: 0;
+}
+
+/* Labels */
+.form-field label {
+  color: #445;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Champs */
+.form-field input,
+.form-field select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 0.8em;
+  border: 1px solid #c5e0dc;
+  border-radius: 6px;
+  background: white;
+  color: #445;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Focus */
+.form-field input:focus,
+.form-field select:focus {
+  border-color: teal;
+  box-shadow: 0 0 0 3px #00808020;
+}
+
+/* Placeholder */
+.form-field input::placeholder {
+  color: #899b98;
+}
+
+/* Boutons */
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.form-actions input[type="button"] {
+  flex: 1;
+  min-width: 90px;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 600px) {
+  :host {
+    margin: 1em;
+    padding: 1em;
+  }
+
+  th,
+  td {
+    padding: 0.6em;
+  }
+
+  td input[type="button"] {
+    padding: 0.5em 0.7em;
+    margin: 0.1em;
+  }
+
+  :host > div {
+    padding: 1em;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  .form-container {
+    grid-template-columns: 1fr;
+    padding: 1em;
+  }
+
+  .form-actions {
+    width: 100%;
+  }
+}
