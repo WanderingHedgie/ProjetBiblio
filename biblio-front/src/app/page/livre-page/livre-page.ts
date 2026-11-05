@@ -18,7 +18,7 @@ export class LivrePage implements OnInit {
   
   protected livres$!: Observable<Livre[]>;
   private refresh$: Subject<void> = new Subject<void>();
-  
+
   protected editingLivreId?: number;
   protected formLivreGroup!: FormGroup;
   protected formLivreTitreCtrl!: FormControl;
