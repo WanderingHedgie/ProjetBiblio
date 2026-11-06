@@ -1,92 +1,108 @@
 <h1>Liste des livres</h1>
 
 
-<form (submit)="ajouterOuModifier()" [formGroup]="formLivreGroup">
+<form (submit)="ajouterOuModifier()" [formGroup]="formLivreGroup" class="form-container">
 
   <!-- Titre -->
-  <div>
-    <input type="text" placeholder="Titre" [formControl]="formLivreTitreCtrl" />
+  <div class="form-field">
+    <label for="titre">Titre</label>
+    <input type="text" id="titre" placeholder="Ex: L'Île mystérieuse" [formControl]="formLivreTitreCtrl" />
+    @if (formLivreTitreCtrl.dirty && formLivreTitreCtrl.hasError('required')) {
+      <div class="required-msg">
+        Le titre est obligatoire !
+      </div>
+    }
   </div>
 
-  @if (formLivreTitreCtrl.dirty && formLivreTitreCtrl.hasError('required')) {
-    <div>
-      Le titre est obligatoire !
-    </div>
-  }
 
   <!-- Resume -->
-  <div>
-    <input type="text" placeholder="Resume" [formControl]="formLivreResumeCtrl" />
+  <div class="form-field">
+    <label for="resume">Résumé</label>
+    <textarea type="text" placeholder="Insérer résumé" [formControl]="formLivreResumeCtrl"></textarea>
+
+    @if (formLivreResumeCtrl.dirty && formLivreResumeCtrl.hasError('required')) {
+      <div class="required-msg">
+        Le résumé est obligatoire !
+      </div>
+    }
   </div>
 
-  @if (formLivreResumeCtrl.dirty && formLivreResumeCtrl.hasError('required')) {
-    <div>
-      Le résumé est obligatoire !
-    </div>
-  }
 
   <!-- Annee -->
-  <div>
-    <input type="number" placeholder="Annee" [formControl]="formLivreAnneeCtrl" />
+  <div class="form-field">
+    <label for="annee">Année</label>
+    <input type="number"  id="annee" min="1200" max="2999" step="1" placeholder="Année" [formControl]="formLivreAnneeCtrl" />
+
+    @if (formLivreAnneeCtrl.dirty && formLivreAnneeCtrl.hasError('required')) {
+      <div class="required-msg">
+        L'année est obligatoire !
+      </div>
+    }
+
   </div>
 
-  @if (formLivreAnneeCtrl.dirty && formLivreAnneeCtrl.hasError('required')) {
-    <div>
-      L'année est obligatoire !
-    </div>
-  }
 
   <!-- Auteur -->
-  <div>
-    <select [formControl]="formLivreAuteurCtrl" [compareWith]="compareById">
+  <div class="form-field">
+    <label for="auteur">Auteur</label>
+    <select id="auteur" [formControl]="formLivreAuteurCtrl" [compareWith]="compareById">
       <option [ngValue]="null" disabled>Choisir un auteur</option>
       @for (a of (auteurs$ | async); track a.id) {
         <option [ngValue]="a">{{ a.prenom }} {{ a.nom }}</option>
       }
     </select>
+
+    @if (formLivreAuteurCtrl.dirty && formLivreAuteurCtrl.hasError('required')) {
+      <div class="required-msg">
+        L'auteur est obligatoire !
+      </div>
+    }
   </div>
 
-  @if (formLivreAuteurCtrl.dirty && formLivreAuteurCtrl.hasError('required')) {
-    <div>
-      L'auteur est obligatoire !
-    </div>
-  }
 
   <!-- Editeur -->
-  <div>
-    <select [formControl]="formLivreEditeurCtrl" [compareWith]="compareById">
+  <div class="form-field">
+    <label for="editeur">Editeur</label>
+    <select id="editeur" [formControl]="formLivreEditeurCtrl" [compareWith]="compareById">
       <option [ngValue]="null" disabled selected>Choisir un éditeur</option>
       @for (e of (editeurs$ | async); track e.id) {
         <option [ngValue]="e">{{ e.nom }}</option>
       }
     </select>
+
+    @if (formLivreEditeurCtrl.dirty && formLivreEditeurCtrl.hasError('required')) {
+      <div class="required-msg">
+        L'éditeur est obligatoire !
+      </div>
+    }
   </div>
 
-  @if (formLivreEditeurCtrl.dirty && formLivreEditeurCtrl.hasError('required')) {
-    <div>
-      L'éditeur est obligatoire !
-    </div>
-  }
 
   <!-- Collection -->
-  <div>
-    <select [formControl]="formLivreCollectionCtrl" [compareWith]="compareById">
+  <div class="form-field">
+    <label for="collection">Collection</label>
+    <select id="collection" [formControl]="formLivreCollectionCtrl" [compareWith]="compareById">
       <option [ngValue]="null">Sans collection</option>
       @for (c of (collections$ | async); track c.id) {
         <option [ngValue]="c">{{ c.nom }}</option>
       }
     </select>
+
+    @if (formLivreCollectionCtrl.dirty && formLivreCollectionCtrl.hasError('required')) {
+      <div class="required-msg">
+        La collection est obligatoire !
+      </div>
+    }
   </div>
 
-  @if (formLivreCollectionCtrl.dirty && formLivreCollectionCtrl.hasError('required')) {
-    <div>
-      La collection est obligatoire !
-    </div>
-  }
+  <div class="form-actions">
+    <button [disabled]="formLivreGroup.invalid" type="submit" [class]="editingLivreId? 'btn-edit' : 'btn-add'">
+      {{ editingLivreId ? 'Modifier' : 'Ajouter' }}
+    </button>
 
-  <div>
-    <button [disabled]="formLivreGroup.invalid" type="submit">Ajouter</button>
-    <button type="button" (click)="annulerEdition()">Annuler</button>
+    @if (editingLivreId) {
+      <button type="button" class="btn-cancel" (click)="annulerEdition()">Annuler</button>
+    }
   </div>
 </form>
 
@@ -100,6 +116,7 @@
       <th>Auteur</th>
       <th>Editeur</th>
       <th>Collection</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -109,13 +126,13 @@
         <td>{{livre.id}}</td>
         <td>{{livre.titre}}</td>
         <td>{{livre.resume}}</td>
-        <td>{{livre.date}}</td>
+        <td>{{livre.date| date:'yyyy'}}</td>
         <td>{{ livre.auteur?.prenom }} {{ livre.auteur?.nom }}</td>
         <td>{{livre.editeur?.nom}}</td>
         <td>{{livre.collection?.nom}}</td>
         <td>
-          <button (click)="editer(livre)">Editer</button>
-          <button (click)="supprimer(livre)">Supprimer</button>
+          <button (click)="editer(livre)" class="btn-edit">Editer</button>
+          <button (click)="supprimer(livre)" class="btn-delete">Supprimer</button>
         </td>
       </tr>
     }

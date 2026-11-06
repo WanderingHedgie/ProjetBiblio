@@ -1,37 +1,41 @@
 <h1>Liste des auteurs</h1>
 
-<form (submit)="ajouterOuModifier()" [formGroup]="formAuteurGroup">
-  <div>
-    <input type="text" placeholder="Nom" [formControl]="formAuteurNomCtrl" />
+<form (submit)="ajouterOuModifier()" [formGroup]="formAuteurGroup" class="form-container">
+
+  <div class="form-field">
+    <label for="nom">Nom</label>
+    <input type="text" id="nom" placeholder="Ex: VERNE" [formControl]="formAuteurNomCtrl" />
+
+    @if (formAuteurNomCtrl.dirty && formAuteurNomCtrl.hasError('required')) {
+    <div class="required-msg">Le nom est obligatoire !</div>
+  }
   </div>
 
-  @if (formAuteurNomCtrl.dirty && formAuteurNomCtrl.hasError('required')) {
-    <div>Le nom est obligatoire !</div>
-  }
+  <div class="form-field">
+    <label for="prenom">Prénom</label>
+    <input id="prenom" type="text" placeholder="Ex: Jules" [formControl]="formAuteurPrenomCtrl" />
 
-  <div>
-    <input type="text" placeholder="Prénom" [formControl]="formAuteurPrenomCtrl" />
+    @if (formAuteurPrenomCtrl.dirty && formAuteurPrenomCtrl.hasError('required')) {
+    <div class="required-msg">Le prénom est obligatoire !</div>
+  }
   </div>
 
-  @if (formAuteurPrenomCtrl.dirty && formAuteurPrenomCtrl.hasError('required')) {
-    <div>Le prénom est obligatoire !</div>
-  }
+  <div class="form-field">
+    <label for="nationalite">Nationalité</label>
+    <input id="nationalite" type="text" placeholder="Ex: Française" [formControl]="formAuteurNationaliteCtrl" />
 
-  <div>
-    <input type="text" placeholder="Nationalité" [formControl]="formAuteurNationaliteCtrl" />
+    @if (formAuteurNationaliteCtrl.dirty && formAuteurNationaliteCtrl.hasError('required')) {
+    <div class="required-msg">La nationalité est obligatoire !</div>
+  }
   </div>
 
-  @if (formAuteurNationaliteCtrl.dirty && formAuteurNationaliteCtrl.hasError('required')) {
-    <div>La nationalité est obligatoire !</div>
-  }
-
-  <div>
-    <button [disabled]="formAuteurGroup.invalid" type="submit">
+  <div class="form-actions">
+    <button [disabled]="formAuteurGroup.invalid" type="submit" [class]="editingAuteurId? 'btn-edit' : 'btn-add'">
       {{ editingAuteurId ? 'Modifier' : 'Ajouter' }}
     </button>
 
     @if (editingAuteurId) {
-      <button type="button" (click)="annulerEdition()">Annuler</button>
+      <button type="button" class="btn-cancel" (click)="annulerEdition()">Annuler</button>
     }
   </div>
 </form>
@@ -55,8 +59,8 @@
         <td>{{ auteur.prenom }}</td>
         <td>{{ auteur.nationalite }}</td>
         <td>
-          <button (click)="editer(auteur)">Editer</button>
-          <button (click)="supprimer(auteur)">Supprimer</button>
+          <button (click)="editer(auteur)" class="btn-edit">Editer</button>
+          <button (click)="supprimer(auteur)" class="btn-delete">Supprimer</button>
         </td>
       </tr>
     }

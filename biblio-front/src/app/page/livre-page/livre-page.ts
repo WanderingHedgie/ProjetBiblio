@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subject, startWith, switchMap } from 'rxjs';
@@ -14,7 +14,8 @@ import { CollectionService } from '../../service/collection';
 
 @Component({
   imports: [AsyncPipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DatePipe
   ],
   selector: 'app-livre-page',
   styleUrl: './livre-page.css',

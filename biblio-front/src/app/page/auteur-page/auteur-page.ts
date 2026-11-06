@@ -10,7 +10,7 @@ import { AuteurService } from '../../service/auteur-service';
   selector: 'app-auteur-page',
   imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './auteur-page.html',
-  styleUrl: './auteur-page.css',
+  styleUrl: '../pages.css',
 })
 export class AuteurPage implements OnInit {
   protected auteurs$!: Observable<Auteur[]>;

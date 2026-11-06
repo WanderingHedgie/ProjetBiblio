@@ -36,6 +36,7 @@ export class AvisPage implements OnInit {
   constructor(
     private title: Title,
     private avisService: AvisService,
+    private livreService: LivreService,
     private formBuilder: FormBuilder
   ){}
 
@@ -50,7 +51,7 @@ export class AvisPage implements OnInit {
 
     this.formAvisGroup = this.formBuilder.group({
       note: this.formAvisNoteControl,
-      comment: this.formAvisCommentControl,
+      commentaire: this.formAvisCommentControl,
       date: this.formAvisDateControl,
       livre: this.formAvisLivreControl
     });
@@ -59,10 +60,15 @@ export class AvisPage implements OnInit {
       startWith(null),
 
       switchMap(() =>
-        {return this.avisService.findAll();
+        {
+          this.livres$ = this.livreService.findAll();
+          return this.avisService.findAll();
 
       })
     );
+
+    this.editingAvisId = undefined;
+    this.formAvisGroup.reset();
   }
 
   protected ajouterOuModifier() {
@@ -83,10 +89,10 @@ export class AvisPage implements OnInit {
     this.formAvisGroup.reset();
   }
 
-    protected editer(avis: Avis) {
+  protected editer(avis: Avis) {
     this.editingAvisId = avis.id;
     this.formAvisNoteControl.setValue(avis.note);
-    this.formAvisCommentControl.setValue(avis.comment);
+    this.formAvisCommentControl.setValue(avis.commentaire);
     this.formAvisDateControl.setValue(avis.date);
     this.formAvisLivreControl.setValue(avis.livre);
   }
@@ -96,7 +102,7 @@ export class AvisPage implements OnInit {
     this.formAvisGroup.reset();
   }
 
-   protected supprimer(avis: Avis) {
+  protected supprimer(avis: Avis) {
     this.avisService.delete(avis).subscribe(() => {
       this.avis$ = this.avisService.findAll();
       this.refresh$.next();

@@ -1,19 +1,25 @@
 <h1>Liste des collections</h1>
 
-<form (submit)="ajouterOuModifier()" [formGroup]="formCollectionGroup">
-  <div>
-    <input type="text" placeholder="Nom" [formControl]="formCollectionNomCtrl" />
+<form (submit)="ajouterOuModifier()" [formGroup]="formCollectionGroup" class="form-container" >
+  <div class="form-field">
+    <label for="nom">Nom de la collection</label>
+    <input id="nom" type="text" placeholder="Ex: Littérature classique" [formControl]="formCollectionNomCtrl" />
+
+    @if (formCollectionNomCtrl.dirty && formCollectionNomCtrl.hasError('required')) {
+      <div class="required-msg">
+        Le nom est obligatoire !
+      </div>
+    }
   </div>
 
-  @if (formCollectionNomCtrl.dirty && formCollectionNomCtrl.hasError('required')) {
-    <div>
-      Le nom est obligatoire !
-    </div>
-  }
 
-  <div>
-    <button [disabled]="formCollectionGroup.invalid" type="submit">Ajouter</button>
-    <button type="button" (click)="annulerEdition()">Annuler</button>
+
+  <div class="form-actions">
+    <button [disabled]="formCollectionGroup.invalid" type="submit" [class]="editingCollectionId? 'btn-edit' : 'btn-add'"
+    [value]="editingCollectionId? 'Modifier' : 'Ajouter'">{{ editingCollectionId ? 'Modifier' : 'Ajouter' }}</button>
+    @if (editingCollectionId) {
+      <button type="button" (click)="annulerEdition()" class="btn-cancel">Annuler</button>
+    }
   </div>
 </form>
 
@@ -32,8 +38,8 @@
         <td>{{ collection.id }}</td>
         <td>{{ collection.nom }}</td>
         <td>
-          <button (click)="editer(collection)">Editer</button>
-          <button (click)="supprimer(collection)">Supprimer</button>
+          <button (click)="editer(collection)" class="btn-edit">Editer</button>
+          <button (click)="supprimer(collection)" class="btn-delete">Supprimer</button>
         </td>
       </tr>
     }

@@ -2,56 +2,84 @@
 
 <form (submit)="ajouterOuModifier()" [formGroup]="formAvisGroup" class="form-container">
 
-  <!-- <div class="form-field">
+  <div class="form-field">
     <label for="note">Note</label>
     <input
-    name="note"
+    id="note"
+    min="0"
+    max="10"
+    step="1"
+    placeholder="0-10"
     type="number"
     [formControl]="formAvisNoteControl">
-  </div> -->
 
-  <!-- <div class="form-field">
-    <label for="comment">Commentaire</label>
-    <input
-    name="comment"
-    type="text"
-    [formControl]="formAvisCommentControl"
-    placeholder="Insérer commentaire">
-  </div> -->
+    @if (formAvisNoteControl.dirty && formAvisNoteControl.hasError('required')) {
+      <div class="required-msg">
+        Requis !
+      </div>
+    }
+  </div>
 
-  <!-- <div class="form-field">
-    <label for="note">Date</label>
-    <input
-    name="note"
-    type="date"
-    [formControl]="formAvisDateControl">
-  </div> -->
+
 
   <div class="form-field">
-    <label for="livres">Livres</label>
+    <label for="comment">Commentaire</label>
+    <textarea
+    id="comment"
+    maxlength="2000"
+    rows="4"
+    type="text"
+    [formControl]="formAvisCommentControl"
+    placeholder="Insérer commentaire"></textarea>
+  </div>
+
+  <div class="form-field">
+    <label for="date">Date</label>
+    <input
+    id="date"
+    type="date"
+    [formControl]="formAvisDateControl">
+
+    @if (formAvisDateControl.dirty && formAvisDateControl.hasError('required')) {
+      <div class="required-msg">
+        Requis !
+      </div>
+    }
+  </div>
+
+  <div class="form-field">
+    <label for="livres">Livre</label>
     <select
-    name="livre"
+    id="livre"
     [formControl]="formAvisLivreControl"
     [compareWith]="compareLivres">
 
-    <option [ngValue]="undefined">-Choisir un livre-</option>
+    <option [ngValue]="null" disabled>- Choisir un livre -</option>
 
     @for (livre of (livres$ | async); track livre.id) {
       <option [ngValue]="livre">
-        {{ livre.auteur }} - {{ livre.titre }}
+        {{ livre.auteur.prenom }} {{ livre.auteur.nom }} - {{ livre.titre }}
       </option>
     }
 
   </select>
+
+  @if (formAvisLivreControl.dirty && formAvisLivreControl.hasError('required')) {
+    <div class="required-msg">
+      Requis !
+    </div>
+  }
+
 </div>
 
 <div class="form-actions">
   <input
   type="submit"
+  [disabled]="formAvisGroup.invalid"
   [class]="editingAvisId? 'btn-edit' : 'btn-add'"
   [value]="editingAvisId? 'Modifier' : 'Ajouter'">
 
-  @if (editingAvisId != null) {
+  @if (editingAvisId) {
     <input
     type="button"
     class="btn-cancel"
@@ -66,12 +94,12 @@
 <table>
   <thead>
     <tr>
-      <td>ID</td>
-      <td>Note</td>
-      <td>Commentaire</td>
-      <td>Date</td>
-      <td>Livre</td>
-      <td></td>
+      <th>ID</th>
+      <th>Note</th>
+      <th>Commentaire</th>
+      <th>Date</th>
+      <th>Livre</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -80,12 +108,12 @@
       <tr>
         <td>{{ avis.id }}</td>
         <td>{{ avis.note }}</td>
-        <td>{{ avis.comment }}</td>
-        <td>{{ avis.date }}</td>
-        <td>{{ avis.livre.auteur }} - {{ avis.livre.titre }}</td>
+        <td>{{ avis.commentaire }}</td>
+        <td>{{ avis.date | date:'dd/MM/yyyy'}}</td>
+        <td>{{ avis.livre.auteur.prenom }} {{avis.livre.auteur.nom}} - {{ avis.livre.titre }}</td>
         <td>
-          <button (click)="editer(avis)">Editer</button>
-          <button (click)="supprimer(avis)">Supprimer</button>
+          <button (click)="editer(avis)" class="btn-edit">Editer</button>
+          <button (click)="supprimer(avis)" class="btn-delete">Supprimer</button>
         </td>
       </tr>
     }

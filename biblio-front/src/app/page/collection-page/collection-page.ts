@@ -10,7 +10,7 @@ import { CollectionService } from '../../service/collection';
 @Component({
   imports: [ ReactiveFormsModule, AsyncPipe],
   selector: 'app-collection-page',
-  styleUrl: './collection-page.css',
+  styleUrl: '../pages.css',
   templateUrl: './collection-page.html',
 })
 export class CollectionPage implements OnInit{

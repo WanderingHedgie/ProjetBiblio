@@ -1,29 +1,35 @@
 <h1>Liste des éditeurs</h1>
 
-<form (submit)="ajouterOuModifier()" [formGroup]="formEditeurGroup">
-  <div>
-    <input type="text" placeholder="Nom" [formControl]="formEditeurNomCtrl" />
-  </div>
+<form (submit)="ajouterOuModifier()" [formGroup]="formEditeurGroup" class="form-container">
+  <div class="form-field">
+    <label for="nom">Nom</label>
+    <input type="text" id="nom" placeholder="Ex: Flammarion" [formControl]="formEditeurNomCtrl" />
 
-  @if (formEditeurNomCtrl.dirty && formEditeurNomCtrl.hasError('required')) {
-    <div>
+    @if (formEditeurNomCtrl.dirty && formEditeurNomCtrl.hasError('required')) {
+    <div class="required-msg">
       Le nom est obligatoire !
     </div>
   }
-
-  <div>
-    <input type="text" placeholder="Pays" [formControl]="formEditeurPaysCtrl" />
   </div>
 
-  @if (formEditeurPaysCtrl.dirty && formEditeurPaysCtrl.hasError('required')) {
-    <div>
+  <div class="form-field">
+    <label for="pays">Pays</label>
+    <input type="text" id="pays" placeholder="Ex: France" [formControl]="formEditeurPaysCtrl" />
+    @if (formEditeurPaysCtrl.dirty && formEditeurPaysCtrl.hasError('required')) {
+    <div class="required-msg">
       Le pays est obligatoire !
     </div>
   }
+  </div>
 
-  <div>
-    <button [disabled]="formEditeurGroup.invalid" type="submit">Ajouter</button>
-    <button type="button" (click)="annulerEdition()">Annuler</button>
+
+
+  <div class="form-actions">
+    <button [disabled]="formEditeurGroup.invalid" type="submit" [class]="editingEditeurId? 'btn-edit' : 'btn-add'"
+    [value]="editingEditeurId? 'Modifier' : 'Ajouter'">{{ editingEditeurId ? 'Modifier' : 'Ajouter' }}</button>
+    @if (editingEditeurId) {
+      <button type="button" (click)="annulerEdition()" class="btn-cancel">Annuler</button>
+    }
   </div>
 </form>
 
@@ -44,8 +50,8 @@
         <td>{{ editeur.nom }}</td>
         <td>{{ editeur.pays }}</td>
         <td>
-          <button (click)="editer(editeur)">Editer</button>
-          <button (click)="supprimer(editeur)">Supprimer</button>
+          <button (click)="editer(editeur)" class="btn-edit">Editer</button>
+          <button (click)="supprimer(editeur)" class="btn-delete">Supprimer</button>
         </td>
       </tr>
     }

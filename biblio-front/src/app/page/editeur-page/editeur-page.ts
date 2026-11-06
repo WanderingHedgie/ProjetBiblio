@@ -10,7 +10,7 @@ import { EditeurService } from '../../service/editeur-service';
   selector: 'app-editeur-page',
   imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './editeur-page.html',
-  styleUrl: './editeur-page.css',
+  styleUrl: '../pages.css',
 })
 export class EditeurPage implements OnInit {
   protected editeurs$!: Observable<Editeur[]>;
