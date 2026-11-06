@@ -40,7 +40,7 @@ public class Livre {
     private Editeur editeur;
 
     @ManyToOne
-    @JoinColumn(name="collection", nullable = false) 
+    @JoinColumn(name="collection") 
     private Collection collection;
 
     public Livre() {
