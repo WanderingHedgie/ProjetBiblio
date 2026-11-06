@@ -10,6 +10,6 @@ import biblio.model.Compte;
 
 public interface IDAOCompte extends JpaRepository<Compte, Integer>{
 
-    public Optional<Compte> findById(Integer id);
-
+    public Optional<Compte> findByUsername(String username);
+    
 }

@@ -16,9 +16,22 @@ public class JpaUserDetailsService implements UserDetailsService {
         this.dao = dao;
     }
     
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
+   @Override
+    public UserDetails loadUserByUsername(Integer id) throws UsernameNotFoundException {
+        return this.dao
+            // Recherche de l'utilisateur par son username
+            .findById(id)
+
+            // Transformation de Utilisateur en UserDetails
+            .map(Compte -> User
+                .withUsername(username)
+                .password(compte.getPassword())
+                .build()
+            )
+
+            // Si l'utilisateur n'existe pas, on jète l'exception UsernameNotFoundException
+            .orElseThrow(() -> new UsernameNotFoundException("Compte not found"))
+        ;
     }
 
 }
