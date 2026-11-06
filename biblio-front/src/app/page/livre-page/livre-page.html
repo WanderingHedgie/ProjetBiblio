@@ -93,10 +93,10 @@
                 <td>{{livre.id}}</td>
                 <td>{{livre.titre}}</td>
                 <td>{{livre.resume}}</td>
-                <td>{{livre.annee}}</td>
-                <td>{{livre.auteur}}</td>
-                <td>{{livre.editeur}}</td>
-                <td>{{livre.collection}}</td>
+                <td>{{livre.date}}</td>
+                <td>{{ livre.auteur?.prenom }} {{ livre.auteur?.nom }}</td>
+                <td>{{livre.editeur?.nom}}</td>
+                <td>{{livre.collection?.nom}}</td>
                 <td>
                     <button (click)="editer(livre)">Editer</button>
                     <button (click)="supprimer(livre)">Supprimer</button>
