@@ -1,1 +1,35 @@
-<p>login-page works!</p>
+<h1>Authentification</h1>
+
+<form (submit)="login()" [formGroup]="formAuthGroup">
+  <div>
+    <label for="username">Identifiant</label> <br>
+    <input type="text" name="username" [formControl]="formAuthUsernameControl">
+  </div>
+
+  @if (formAuthUsernameControl.dirty && formAuthUsernameControl.hasError('required')) {
+    <div class="required-msg">
+      Le nom d'utilisateur est requis !
+    </div>
+  }
+
+  <div>
+    <label for="password">Mot de passe</label> <br>
+    <input type="password" name="password" [formControl]="formAuthPasswordControl">
+  </div>
+
+  @if (formAuthPasswordControl.dirty && formAuthPasswordControl.hasError('required')) {
+    <div class="required-msg">
+      Le mot de passe est requis !
+    </div>
+  }
+
+  <div>
+    <button (click)="login()" type="submit" [disabled]="formAuthGroup.invalid">Connecter</button>
+  </div>
+
+  @if (errorMessage()) {
+    <p class="error-message">{{ errorMessage() }}</p>
+  }
+
+
+</form>
