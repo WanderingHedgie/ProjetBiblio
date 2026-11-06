@@ -1,5 +1,6 @@
 package biblio.config;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,13 +18,13 @@ public class JpaUserDetailsService implements UserDetailsService {
     }
     
    @Override
-    public UserDetails loadUserByUsername(Integer id) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.dao
             // Recherche de l'utilisateur par son username
-            .findById(id)
+            .findByUsername(username)
 
             // Transformation de Utilisateur en UserDetails
-            .map(Compte -> User
+            .map(compte -> User
                 .withUsername(username)
                 .password(compte.getPassword())
                 .build()
