@@ -2,6 +2,7 @@ package biblio.model;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.Check;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
@@ -15,13 +16,14 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
+@Check (constraints = "note BETWEEN 0 AND 10")
 public class Avis {
     
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(nullable = false, columnDefinition = "INT CHECK (note <= 10 AND note >= 0)")
+    @Column(nullable = false) // columnDefinition = "INT CHECK (note <= 10 AND note >= 0)"
     private int note;
     
     @Column(length = 2000)
