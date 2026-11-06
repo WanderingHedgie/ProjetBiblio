@@ -5,26 +5,33 @@ import { Livre } from '../model/livre';
 
 @Injectable({ providedIn: 'root' })
 export class LivreService {
-    
-    private http = inject(HttpClient);
-    private url = '/livre';
-    
-    public findAll(): Observable<Livre[]> {
-        return this.http.get<Livre[]>(this.url);
+
+  private http = inject(HttpClient);
+  private url = '/livre';
+
+  public findAll(): Observable<Livre[]> {
+    return this.http.get<Livre[]>(this.url);
+  }
+
+  public findAllLivresAvis(): Observable<Livre[]> {
+    return this.http.get<Livre[]>(this.url, {
+      headers: {'mode':'avis'}
+    });
+  }
+
+
+  public findById(livre: Livre): Observable<Livre> {
+    return this.http.get<Livre>(`${this.url}/${ livre.id }`)
+  }
+
+  public save(livre: Livre): Observable<Livre> {
+    if (livre.id) {
+      return this.http.put<Livre>(`${this.url}/${livre.id}`, livre);
     }
-    
-    public findById(livre: Livre): Observable<Livre> {
-        return this.http.get<Livre>(`${this.url}/${ livre.id }`)
-    }
-    
-    public save(livre: Livre): Observable<Livre> {
-        if (livre.id) {
-            return this.http.put<Livre>(`${this.url}/${livre.id}`, livre);
-        }
-        return this.http.post<Livre>(this.url, livre);
-    }
-    
-    public remove(livre: Livre): Observable<void> {
-        return this.http.delete<void>(`${this.url}/${livre.id}`);
-    }
+    return this.http.post<Livre>(this.url, livre);
+  }
+
+  public remove(livre: Livre): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${livre.id}`);
+  }
 }

@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import biblio.dao.IDAOLivre;
+import biblio.dto.response.LivreResponse;
 import biblio.model.Livre;
+import jakarta.transaction.Transactional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController 
@@ -29,6 +33,16 @@ public class LivreRestController {
     {
         return daoLivre.findAll();
     }
+
+    @GetMapping(headers = "mode=avis")
+    @Transactional
+    public List<LivreResponse> afficherTousAvis() {
+        return daoLivre.findAll().stream()
+        .map(LivreResponse::convert)
+        .toList()
+        ;
+    }
+    
 
     @GetMapping("/{id}")
     public Livre afficherParId(@PathVariable Integer id)
