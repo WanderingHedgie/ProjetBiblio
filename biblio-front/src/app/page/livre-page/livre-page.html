@@ -1,6 +1,6 @@
 <h1>Liste des livres</h1>
 
-<form (submit)="ajouterOuModifier()" [formGroup]="'formLivreGroup">
+<form (submit)="ajouterOuModifier()" [formGroup]="formLivreGroup">
     
     <!-- Titre -->
     <div>
@@ -98,8 +98,8 @@
                 <td>{{livre.editeur}}</td>
                 <td>{{livre.collection}}</td>
                 <td>
-                    <button (click)="editer(editeur)">Editer</button>
-                    <button (click)="supprimer(editeur)">Supprimer</button>
+                    <button (click)="editer(livre)">Editer</button>
+                    <button (click)="supprimer(livre)">Supprimer</button>
                 </td>
             </tr>
         }
