@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import biblio.dao.IDAOCompte;
 import biblio.model.Compte;
+import biblio.dto.response.AuthResponse;
+import biblio.dto.request.AuthRequest;
 
 @RestController 
 @RequestMapping ("/api/compte")
