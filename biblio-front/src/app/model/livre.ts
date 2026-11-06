@@ -6,7 +6,7 @@ export interface Livre {
     id?: number;
     titre: string;
     resume: string;
-    annee: number;
+    date: string;
     auteur: Auteur;
     editeur: Editeur;
     collection?: Collection;

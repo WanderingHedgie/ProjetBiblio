@@ -48,7 +48,7 @@ export class LivrePage implements OnInit {
     this.formLivreGroup = this.formBuilder.group({
       titre: this.formLivreTitreCtrl,
       resume: this.formLivreResumeCtrl,
-      annee: this.formLivreAnneeCtrl,
+      date: this.formLivreAnneeCtrl,
       auteur: this.formLivreAuteurCtrl,
       editeur: this.formLivreEditeurCtrl,
       collection: this.formLivreCollectionCtrl
@@ -83,7 +83,7 @@ export class LivrePage implements OnInit {
     this.editingLivreId = livre.id;
     this.formLivreTitreCtrl.setValue(livre.titre);
     this.formLivreResumeCtrl.setValue(livre.resume);
-    this.formLivreAnneeCtrl.setValue(livre.annee);
+    this.formLivreAnneeCtrl.setValue(livre.date);
     this.formLivreAuteurCtrl.setValue(livre.auteur);
     this.formLivreEditeurCtrl.setValue(livre.editeur);
     this.formLivreCollectionCtrl.setValue(livre.collection)
