@@ -1,0 +1,33 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 2em;
+  background: #f0f7f6;
+  border-bottom: 2px solid #c5e0dc;
+  border-radius: 8px;
+}
+
+nav a {
+  color: #445;
+  text-decoration: none;
+  padding: 0.5em 0.8em;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+nav a:hover {
+  background: #d5ebe7;
+  color: teal;
+}
+
+nav a.active {
+  background: teal;
+  color: white;
+  font-weight: 600;
+}
+
+nav div:last-child a:hover {
+  color: #c0392b;
+  background: #fce8e6;
+}

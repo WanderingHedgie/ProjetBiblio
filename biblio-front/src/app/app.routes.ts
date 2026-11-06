@@ -52,4 +52,16 @@ export const routes: Routes = [
     //canActivate: [ authGuard ]
     },
 
+    // {
+    //   path: 'logout',
+    //   component: LogoutPage,
+    //   canActivate: [ authGuard ]
+    // },
+
+    {
+      path: '',
+      pathMatch: 'full',
+      redirectTo: 'home'
+    }
+
 ];
