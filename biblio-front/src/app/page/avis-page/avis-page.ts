@@ -98,7 +98,7 @@ export class AvisPage implements OnInit {
 
    protected supprimer(avis: Avis) {
     this.avisService.delete(avis).subscribe(() => {
-      // this.aviss$ = this.avisService.findAll();
+      this.avis$ = this.avisService.findAll();
       this.refresh$.next();
     });
   }
