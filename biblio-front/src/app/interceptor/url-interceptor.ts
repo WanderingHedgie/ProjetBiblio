@@ -5,5 +5,5 @@ export const urlInterceptor: HttpInterceptorFn = (req, next) => {
     url: `http://localhost:8080/api${ req.url }`
   });
   
-  return next(req);
+  return next(request);
 };
