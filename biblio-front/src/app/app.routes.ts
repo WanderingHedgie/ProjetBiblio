@@ -19,37 +19,37 @@ export const routes: Routes = [
     {
     path: 'home',
     component: HomePage,
-    canActivate: [ authGuard ]
+    //canActivate: [ authGuard ]
     },
 
     {
     path: 'livre',
     component: LivrePage,
-    canActivate: [ authGuard ]
+    //canActivate: [ authGuard ]
     },
 
     {
     path: 'auteur',
     component: AuteurPage,
-    canActivate: [ authGuard ]
+    //canActivate: [ authGuard ]
     },
 
     {
     path: 'collection',
     component: CollectionPage,
-    canActivate: [ authGuard ]
+    //canActivate: [ authGuard ]
     },
 
     {
     path: 'editeur',
     component: EditeurPage,
-    canActivate: [ authGuard ]
+    //canActivate: [ authGuard ]
     },
 
     {
     path: 'avis',
     component: AvisPage,
-    canActivate: [ authGuard ]
+    //canActivate: [ authGuard ]
     },
 
 ];
