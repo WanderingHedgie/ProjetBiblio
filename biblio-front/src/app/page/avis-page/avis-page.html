@@ -34,7 +34,7 @@
     [formControl]="formAvisLivreControl"
     [compareWith]="compareLivres">
 
-    <option [ngValue]="undefined">-Choisir une salle-</option>
+    <option [ngValue]="undefined">-Choisir un livre-</option>
 
     @for (livre of (livres$ | async); track livre.id) {
       <option [ngValue]="livre">
