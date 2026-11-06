@@ -36,7 +36,7 @@
 
     <option [ngValue]="undefined">-Choisir une salle-</option>
 
-    @for (livre of (livres$ | async); track livre.titre) {
+    @for (livre of (livres$ | async); track livre.id) {
       <option [ngValue]="livre">
         {{ livre.auteur }} - {{ livre.titre }}
       </option>

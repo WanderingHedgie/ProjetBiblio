@@ -36,7 +36,6 @@ export class AvisPage implements OnInit {
   constructor(
     private title: Title,
     private avisService: AvisService,
-    private livreService: LivreService,
     private formBuilder: FormBuilder
   ){}
 
@@ -105,9 +104,9 @@ export class AvisPage implements OnInit {
   }
 
   protected compareLivres(
-    livre1: Pick<Livre, 'auteur' | 'titre'> | undefined,
-    livre2: Pick<Livre, 'auteur' | 'titre'> | undefined
+    livre1: Pick<Livre, 'id' | 'auteur' | 'titre'> | undefined,
+    livre2: Pick<Livre, 'id' | 'auteur' | 'titre'> | undefined
   ): boolean {
-    return livre1?.titre === livre2?.titre;
+    return livre1?.id === livre2?.id;
   }
 }

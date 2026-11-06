@@ -5,5 +5,5 @@ export interface Avis {
   note: number;
   comment: string;
   date: string;
-  livre: Pick<Livre, 'auteur' | 'titre'>
+  livre: Pick<Livre, 'id' | 'auteur' | 'titre'>
 }
