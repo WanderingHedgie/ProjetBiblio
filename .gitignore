@@ -1,4 +1,4 @@
-.vscode
+.vscode/
 .classpath
 .project
 .settings/
@@ -7,3 +7,4 @@ target/
 .DS_Store
 Servers/
 nodes_modules
+*/main/resources/application.properties
