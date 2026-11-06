@@ -21,16 +21,16 @@ import { CollectionService } from '../../service/collection';
   templateUrl: './livre-page.html',
 })
 export class LivrePage implements OnInit {
-  
+
   protected livres$!: Observable<Livre[]>;
   protected auteurs$!: Observable<Auteur[]>;
   protected editeurs$!: Observable<Editeur[]>;
   protected collections$!: Observable<Collection[]>;
   protected compareById = (a: { id?: number } | null, b: { id?: number } | null) =>
     a && b ? a.id === b.id : a === b;
-  
+
   private refresh$: Subject<void> = new Subject<void>();
-  
+
   protected editingLivreId?: number;
   protected formLivreGroup!: FormGroup;
   protected formLivreTitreCtrl!: FormControl;
@@ -39,7 +39,7 @@ export class LivrePage implements OnInit {
   protected formLivreAuteurCtrl!: FormControl;
   protected formLivreEditeurCtrl!: FormControl;
   protected formLivreCollectionCtrl!: FormControl;
-  
+
   constructor(
     private title: Title,
     private livreService: LivreService,
@@ -48,18 +48,18 @@ export class LivrePage implements OnInit {
     private collectionService: CollectionService,
     private formBuilder: FormBuilder
   ) { }
-  
+
   ngOnInit(): void {
     this.title.setTitle("Liste des livres");
-    
+
     // Création du formulaire ReactiveForms (un contrôle par champ)
     this.formLivreTitreCtrl = this.formBuilder.control("", Validators.required);
     this.formLivreResumeCtrl = this.formBuilder.control("", Validators.required);
     this.formLivreAnneeCtrl = this.formBuilder.control("", Validators.required);
     this.formLivreAuteurCtrl = this.formBuilder.control("", Validators.required);
     this.formLivreEditeurCtrl = this.formBuilder.control("", Validators.required);
-    this.formLivreCollectionCtrl = this.formBuilder.control("", Validators.required);
-    
+    this.formLivreCollectionCtrl = this.formBuilder.control("");
+
     this.formLivreGroup = this.formBuilder.group({
       titre: this.formLivreTitreCtrl,
       resume: this.formLivreResumeCtrl,
@@ -68,35 +68,38 @@ export class LivrePage implements OnInit {
       editeur: this.formLivreEditeurCtrl,
       collection: this.formLivreCollectionCtrl
     });
-    
+
     this.livres$ = this.refresh$.pipe(
       startWith(null),
-      switchMap(() => { 
+      switchMap(() => {
         this.auteurs$ = this.auteurSerivce.findAll();
         this.editeurs$ = this.editeurService.findAll();
         this.collections$ = this.collectionService.findAll();
         return this.livreService.findAll();
       })
     );
+
+    this.editingLivreId = undefined;
+    this.formLivreGroup.reset();
   }
-  
+
   protected ajouterOuModifier(){
     if (this.formLivreGroup.invalid) {
       return;
     }
-    
+
     const livre: Livre = {
       ...this.formLivreGroup.getRawValue(),
       id: this.editingLivreId
     };
-    
+
     this.livreService.save(livre).subscribe(() => {
       this.refresh$.next();
     });
-    
+
     this.annulerEdition();
   }
-  
+
   protected editer(livre: Livre) {
     this.editingLivreId = livre.id;
     this.formLivreTitreCtrl.setValue(livre.titre);
@@ -106,13 +109,13 @@ export class LivrePage implements OnInit {
     this.formLivreEditeurCtrl.setValue(livre.editeur);
     this.formLivreCollectionCtrl.setValue(livre.collection)
   }
-  
+
   protected supprimer(livre: Livre) {
     this.livreService.remove(livre).subscribe(() => {
       this.refresh$.next();
     });
   }
-  
+
   protected annulerEdition() {
     this.editingLivreId = undefined;
     this.formLivreGroup.reset();

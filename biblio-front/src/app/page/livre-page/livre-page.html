@@ -1,107 +1,123 @@
 <h1>Liste des livres</h1>
 
+
 <form (submit)="ajouterOuModifier()" [formGroup]="formLivreGroup">
-    
-    <!-- Titre -->
+
+  <!-- Titre -->
+  <div>
+    <input type="text" placeholder="Titre" [formControl]="formLivreTitreCtrl" />
+  </div>
+
+  @if (formLivreTitreCtrl.dirty && formLivreTitreCtrl.hasError('required')) {
     <div>
-        <input type="text" placeholder="Titre" [formControl]="formLivreTitreCtrl" />
+      Le titre est obligatoire !
     </div>
-    
-    @if (formLivreTitreCtrl.dirty && formLivreTitreCtrl.hasError('required')) {
-        <div>
-            Le titre est obligatoire !
-        </div>
-    }
-    
-    <!-- Resume -->
+  }
+
+  <!-- Resume -->
+  <div>
+    <input type="text" placeholder="Resume" [formControl]="formLivreResumeCtrl" />
+  </div>
+
+  @if (formLivreResumeCtrl.dirty && formLivreResumeCtrl.hasError('required')) {
     <div>
-        <input type="text" placeholder="Resume" [formControl]="formLivreResumeCtrl" />
+      Le résumé est obligatoire !
     </div>
-    
-    @if (formLivreResumeCtrl.dirty && formLivreResumeCtrl.hasError('required')) {
-        <div>
-            Le résumé est obligatoire !
-        </div>
-    }
-    
-    <!-- Annee -->
+  }
+
+  <!-- Annee -->
+  <div>
+    <input type="number" placeholder="Annee" [formControl]="formLivreAnneeCtrl" />
+  </div>
+
+  @if (formLivreAnneeCtrl.dirty && formLivreAnneeCtrl.hasError('required')) {
     <div>
-        <input type="number" placeholder="Annee" [formControl]="formLivreAnneeCtrl" />
+      L'année est obligatoire !
     </div>
-    
-    @if (formLivreAnneeCtrl.dirty && formLivreAnneeCtrl.hasError('required')) {
-        <div>
-            L'année est obligatoire !
-        </div>
-    }
-    
-    <!-- Auteur -->
+  }
+
+  <!-- Auteur -->
+  <div>
+    <select [formControl]="formLivreAuteurCtrl" [compareWith]="compareById">
+      <option [ngValue]="null" disabled>Choisir un auteur</option>
+      @for (a of (auteurs$ | async); track a.id) {
+        <option [ngValue]="a">{{ a.prenom }} {{ a.nom }}</option>
+      }
+    </select>
+  </div>
+
+  @if (formLivreAuteurCtrl.dirty && formLivreAuteurCtrl.hasError('required')) {
     <div>
-        <input type="text" placeholder="Auteur" [formControl]="formLivreAuteurCtrl" />
+      L'auteur est obligatoire !
     </div>
-    
-    @if (formLivreAuteurCtrl.dirty && formLivreAuteurCtrl.hasError('required')) {
-        <div>
-            L'auteur est obligatoire !
-        </div>
-    }
-    
-    <!-- Editeur -->
+  }
+
+  <!-- Editeur -->
+  <div>
+    <select [formControl]="formLivreEditeurCtrl" [compareWith]="compareById">
+      <option [ngValue]="null" disabled selected>Choisir un éditeur</option>
+      @for (e of (editeurs$ | async); track e.id) {
+        <option [ngValue]="e">{{ e.nom }}</option>
+      }
+    </select>
+  </div>
+
+  @if (formLivreEditeurCtrl.dirty && formLivreEditeurCtrl.hasError('required')) {
     <div>
-        <input type="text" placeholder="Editeur" [formControl]="formLivreEditeurCtrl" />
+      L'éditeur est obligatoire !
     </div>
-    
-    @if (formLivreEditeurCtrl.dirty && formLivreEditeurCtrl.hasError('required')) {
-        <div>
-            L'éditeur est obligatoire !
-        </div>
-    }
-    
-    <!-- Collection -->
+  }
+
+  <!-- Collection -->
+  <div>
+    <select [formControl]="formLivreCollectionCtrl" [compareWith]="compareById">
+      <option [ngValue]="null">Sans collection</option>
+      @for (c of (collections$ | async); track c.id) {
+        <option [ngValue]="c">{{ c.nom }}</option>
+      }
+    </select>
+  </div>
+
+  @if (formLivreCollectionCtrl.dirty && formLivreCollectionCtrl.hasError('required')) {
     <div>
-        <input type="text" placeholder="Collection" [formControl]="formLivreCollectionCtrl" />
+      La collection est obligatoire !
     </div>
-    
-    @if (formLivreCollectionCtrl.dirty && formLivreCollectionCtrl.hasError('required')) {
-        <div>
-            La collection est obligatoire !
-        </div>
-    }
-    
-    <div>
-        <button [disabled]="formLivreGroup.invalid" type="submit">Ajouter</button>
-        <button type="button" (click)="annulerEdition()">Annuler</button>
-    </div>
+  }
+
+  <div>
+    <button [disabled]="formLivreGroup.invalid" type="submit">Ajouter</button>
+    <button type="button" (click)="annulerEdition()">Annuler</button>
+  </div>
 </form>
 
 <table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Titre</th>
-            <th>Résumé</th>
-            <th>Année</th>
-            <th>Auteur</th>
-            <th>Editeur</th>
-            <th>Collection</th>
-        </tr>
-    </thead>
-    
-    <tbody>
-        @for (livre of (livres$ | async); track livre.id) {
-            <tr>
-                <td>{{livre.id}}</td>
-                <td>{{livre.titre}}</td>
-                <td>{{livre.resume}}</td>
-                <td>{{livre.date}}</td>
-                <td>{{ livre.auteur?.prenom }} {{ livre.auteur?.nom }}</td>
-                <td>{{livre.editeur?.nom}}</td>
-                <td>{{livre.collection?.nom}}</td>
-                <td>
-                    <button (click)="editer(livre)">Editer</button>
-                    <button (click)="supprimer(livre)">Supprimer</button>
-                </td>
-            </tr>
-        }
-    </tbody>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Titre</th>
+      <th>Résumé</th>
+      <th>Année</th>
+      <th>Auteur</th>
+      <th>Editeur</th>
+      <th>Collection</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (livre of (livres$ | async); track livre.id) {
+      <tr>
+        <td>{{livre.id}}</td>
+        <td>{{livre.titre}}</td>
+        <td>{{livre.resume}}</td>
+        <td>{{livre.date}}</td>
+        <td>{{ livre.auteur?.prenom }} {{ livre.auteur?.nom }}</td>
+        <td>{{livre.editeur?.nom}}</td>
+        <td>{{livre.collection?.nom}}</td>
+        <td>
+          <button (click)="editer(livre)">Editer</button>
+          <button (click)="supprimer(livre)">Supprimer</button>
+        </td>
+      </tr>
+    }
+  </tbody>
 </table>
