@@ -30,7 +30,7 @@
     @for (collection of (collections$ | async); track collection.id) {
       <tr>
         <td>{{ collection.id }}</td>
-        <td>{{ collection.nom }}</td>>
+        <td>{{ collection.nom }}</td>
         <td>
           <button (click)="editer(collection)">Editer</button>
           <button (click)="supprimer(collection)">Supprimer</button>
