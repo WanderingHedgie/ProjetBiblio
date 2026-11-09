@@ -14,7 +14,20 @@
 
   <div class="form-field">
     <label for="pays">Pays</label>
-    <input type="text" id="pays" placeholder="Ex: France" [formControl]="formEditeurPaysCtrl" />
+
+    <select id="pays" [formControl]="formEditeurPaysCtrl">
+      <option [ngValue]="null" disabled>Sélectionner un pays</option>
+      <option value="Allemagne">Allemagne</option>
+      <option value="Usa">Etats-Unis</option>
+      <option value="Argentine">Argentine</option>
+      <option value="Uk">Royaume-Uni</option>
+      <option value="Chine">Chine</option>
+      <option value="Espagne">Espagne</option>
+      <option value="France">France</option>
+      <option value="Italie">Italie</option>
+      <option value="Russie">Russie</option>
+    </select>
+
     @if (formEditeurPaysCtrl.dirty && formEditeurPaysCtrl.hasError('required')) {
     <div class="required-msg">
       Le pays est obligatoire !

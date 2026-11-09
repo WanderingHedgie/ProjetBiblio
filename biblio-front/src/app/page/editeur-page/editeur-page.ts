@@ -32,7 +32,7 @@ export class EditeurPage implements OnInit {
 
     // Création du formulaire ReactiveForms (un contrôle par champ)
     this.formEditeurNomCtrl = this.formBuilder.control("", Validators.required);
-    this.formEditeurPaysCtrl = this.formBuilder.control("", Validators.required);
+    this.formEditeurPaysCtrl = this.formBuilder.control<string|null>(null, Validators.required);
 
     this.formEditeurGroup = this.formBuilder.group({
       nom: this.formEditeurNomCtrl,
