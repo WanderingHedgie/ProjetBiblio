@@ -1,1 +1,30 @@
-<p>compte-page works!</p>
+<h1>Inscrpition utilisateur</h1>
+
+<form (submit)="inscrire()" [formGroup]="formCompteGroup">
+  <div>
+    <label for="username">Identifiant</label> <br>
+    <input type="text" name="username" [formControl]="formCompteUsernameCtrl">
+  </div>
+
+  @if (formCompteUsernameCtrl.dirty && formCompteUsernameCtrl.hasError('required')) {
+    <div class="required-msg">
+      Le nom d'utilisateur est requis !
+    </div>
+  }
+
+  <div>
+    <label for="password">Mot de passe</label> <br>
+    <input type="password" name="password" [formControl]="formComptePasswordCtrl">
+  </div>
+
+  @if (formComptePasswordCtrl.dirty && formComptePasswordCtrl.hasError('required')) {
+    <div class="required-msg">
+      Le mot de passe est requis !
+    </div>
+  }
+
+  <div>
+    <button type="submit" [disabled]="formCompteGroup.invalid">S'inscrire</button>
+  </div>
+
+</form>
