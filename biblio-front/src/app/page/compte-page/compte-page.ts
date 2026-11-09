@@ -51,6 +51,7 @@ export class ComptePage implements OnInit {
     };
     
     this.compteService.save(compte).subscribe(() => {
+      this.router.navigate(['/login']),
       this.formCompteGroup.reset();
     });
   }
