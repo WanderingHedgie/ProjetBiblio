@@ -27,6 +27,10 @@
     <button (click)="login()" type="submit" [disabled]="formAuthGroup.invalid">Connecter</button>
   </div>
 
+  <div>
+    <a routerLink="/inscription">S'inscrire</a>
+  </div>
+
   @if (errorMessage()) {
     <p class="error-message">{{ errorMessage() }}</p>
   }
