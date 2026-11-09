@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Compte } from '../../model/compte';
 import { CompteService } from '../../service/compte-service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -38,6 +39,18 @@ export class ComptePage implements OnInit {
       username: this.formCompteUsernameCtrl,
       password: this.formComptePasswordCtrl
     });
+
+    this.formCompteUsernameCtrl.valueChanges.subscribe(() => {
+      if (this.formCompteUsernameCtrl.hasError('usernameTaken')) {
+        const errors = { ...this.formCompteUsernameCtrl.errors };
+
+        delete errors['usernameTaken'];
+
+        this.formCompteUsernameCtrl.setErrors(
+          Object.keys(errors).length ? errors : null
+        );
+      }
+    });
   }
 
   protected inscrire() {
@@ -49,13 +62,25 @@ export class ComptePage implements OnInit {
       ...this.formCompteGroup.getRawValue()
     };
 
-    this.compteService.save(compte).subscribe(() => {
-      this.router.navigate(['/login']),
-      this.formCompteGroup.reset();
+    this.compteService.save(compte).subscribe({
+      next: () => {
+        this.router.navigate(['/login']),
+        this.formCompteGroup.reset();
+      },
+
+      error: (error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          this.formCompteUsernameCtrl.setErrors({
+            ...this.formCompteUsernameCtrl.errors,
+            usernameTaken: true
+          });
+        }
+      }
     });
   }
 
   protected annulerEdition() {
     this.formCompteGroup.reset();
   }
+
 }

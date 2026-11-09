@@ -1,30 +1,39 @@
 <h1>Inscription utilisateur</h1>
 
-<form (submit)="inscrire()" [formGroup]="formCompteGroup">
-  <div>
+<form (submit)="inscrire()" [formGroup]="formCompteGroup" class="form-container">
+  <div class="form-field">
     <label for="username">Identifiant</label> <br>
     <input type="text" name="username" [formControl]="formCompteUsernameCtrl">
+
+    @if (formCompteUsernameCtrl.dirty && formCompteUsernameCtrl.hasError('required')) {
+      <div class="required-msg">
+        Le nom d'utilisateur est requis !
+      </div>
+    }
+
   </div>
 
-  @if (formCompteUsernameCtrl.dirty && formCompteUsernameCtrl.hasError('required')) {
-    <div class="required-msg">
-      Le nom d'utilisateur est requis !
-    </div>
-  }
 
-  <div>
+  <div class="form-field">
     <label for="password">Mot de passe</label> <br>
     <input type="password" name="password" [formControl]="formComptePasswordCtrl">
+
+    @if (formComptePasswordCtrl.dirty && formComptePasswordCtrl.hasError('required')) {
+      <div class="required-msg">
+        Le mot de passe est requis !
+      </div>
+    }
   </div>
 
-  @if (formComptePasswordCtrl.dirty && formComptePasswordCtrl.hasError('required')) {
-    <div class="required-msg">
-      Le mot de passe est requis !
-    </div>
-  }
+  <br>
 
-  <div>
+  <div class="form-actions">
     <button type="submit" [disabled]="formCompteGroup.invalid">S'inscrire</button>
   </div>
 
+  @if (formCompteUsernameCtrl.hasError('usernameTaken')) {
+    <div class="required-msg username-error">
+      Nom d'utilisateur indisponible !
+    </div>
+  }
 </form>
