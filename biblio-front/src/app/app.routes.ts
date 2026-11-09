@@ -7,6 +7,7 @@ import { AuteurPage } from './page/auteur-page/auteur-page';
 import { CollectionPage } from './page/collection-page/collection-page';
 import { EditeurPage } from './page/editeur-page/editeur-page';
 import { AvisPage } from './page/avis-page/avis-page';
+import { LogoutPage } from './page/logout-page/logout-page';
 
 
 export const routes: Routes = [
@@ -19,44 +20,43 @@ export const routes: Routes = [
     {
     path: 'home',
     component: HomePage,
-    //canActivate: [ authGuard ]
+    canActivate: [ authGuard ]
     },
 
     {
     path: 'livre',
     component: LivrePage,
-    //canActivate: [ authGuard ]
+    canActivate: [ authGuard ]
     },
 
     {
     path: 'auteur',
     component: AuteurPage,
-    //canActivate: [ authGuard ]
+    canActivate: [ authGuard ]
     },
 
     {
     path: 'collection',
     component: CollectionPage,
-    //canActivate: [ authGuard ]
+    canActivate: [ authGuard ]
     },
 
     {
     path: 'editeur',
     component: EditeurPage,
-    //canActivate: [ authGuard ]
+    canActivate: [ authGuard ]
     },
 
     {
     path: 'avis',
     component: AvisPage,
-    //canActivate: [ authGuard ]
+    canActivate: [ authGuard ]
     },
 
-    // {
-    //   path: 'logout',
-    //   component: LogoutPage,
-    //   canActivate: [ authGuard ]
-    // },
+    {
+      path: 'logout',
+      component: LogoutPage
+    },
 
     {
       path: '',
