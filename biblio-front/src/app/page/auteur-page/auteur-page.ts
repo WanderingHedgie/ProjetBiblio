@@ -34,7 +34,7 @@ export class AuteurPage implements OnInit {
     // Création du formulaire ReactiveForms (un contrôle par champ)
     this.formAuteurNomCtrl = this.formBuilder.control("", Validators.required);
     this.formAuteurPrenomCtrl = this.formBuilder.control("", Validators.required);
-    this.formAuteurNationaliteCtrl = this.formBuilder.control("", Validators.required);
+    this.formAuteurNationaliteCtrl = this.formBuilder.control<string|null>(null, Validators.required);
 
     this.formAuteurGroup = this.formBuilder.group({
       nom: this.formAuteurNomCtrl,

@@ -23,6 +23,7 @@
   <div class="form-field">
     <label for="nationalite">Nationalité</label>
     <select id="nationalite" [formControl]="formAuteurNationaliteCtrl">
+      <option [ngValue]="null" disabled>Sélectionner une nationalité</option>
       <option value="Allemande">Allemande</option>
       <option value="Americaine">Américaine</option>
       <option value="Argentine">Argentine</option>
