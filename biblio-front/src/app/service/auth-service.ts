@@ -8,7 +8,7 @@ import { Auth } from '../model/auth';
   providedIn: 'root',
 })
 export class AuthService {
-  private _token: string = sessionStorage.getItem('token') ?? "";
+  private _token: string =  sessionStorage.getItem('token') ?? "";
 
   public get token(): string {
     return this._token;
@@ -16,6 +16,7 @@ export class AuthService {
 
   public set token(value: string) {
     this._token = value;
+    sessionStorage.setItem('token', value);
   }
 
   constructor(private http: HttpClient) {
@@ -23,5 +24,12 @@ export class AuthService {
 
   public login(auth: Auth): Observable<AuthResponse> {
     return this.http.post<AuthResponse>('/compte/auth', auth);
+  }
+  public logout(): void {
+    this._token = "";
+    sessionStorage.clear();
+  }
+  public estConnecte(): boolean {
+    return this._token !== '';
   }
 }
