@@ -65,9 +65,9 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) {
         // Configuration des autorisations d'accès
         http.authorizeHttpRequests(authorize -> {
-            authorize.requestMatchers( "/**").permitAll();
-            //authorize.requestMatchers(HttpMethod.POST, "/api/user/auth").permitAll();
-            //authorize.requestMatchers("/api/**").authenticated();
+            // authorize.requestMatchers( "/**").permitAll();
+            authorize.requestMatchers(HttpMethod.POST, "/api/compte/auth").permitAll();
+            authorize.requestMatchers("/api/**").authenticated();
         });
 
         // Remet le HTTP Basic

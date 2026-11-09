@@ -22,6 +22,6 @@ export class AuthService {
   }
 
   public login(auth: Auth): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>('/user/auth', auth);
+    return this.http.post<AuthResponse>('/compte/auth', auth);
   }
 }
