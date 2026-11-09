@@ -77,3 +77,12 @@ button:disabled:hover {
   font-size: 0.9rem;
   text-align: center;
 }
+
+button.btn-signin {
+  background: #e3e8ed;
+  color: #526475;
+}
+
+button.btn-signin:hover  {
+  background: #cdd6df;
+}

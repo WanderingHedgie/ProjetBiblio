@@ -1,0 +1,79 @@
+:host {
+  display: block;
+  max-width: 380px;
+  margin: 4em auto;
+  padding: 2.5em;
+  background: #f0f7f6;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px #00000015;
+}
+
+h1 {
+  color: teal;
+  text-align: center;
+  margin-top: 0;
+}
+
+div {
+  margin-bottom: 1.2em;
+}
+
+label {
+  color: #445;
+  font-weight: 600;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.8em;
+  margin-top: 0.4em;
+  border: 1px solid #c5e0dc;
+  border-radius: 6px;
+  outline: none;
+}
+
+input:focus {
+  border-color: teal;
+  box-shadow: 0 0 0 3px #00808020;
+}
+
+button {
+  width: 100%;
+  padding: 0.8em;
+  background: teal;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 1em;
+}
+
+button:hover {
+  background: #006666;
+}
+
+.required-msg {
+  color: red
+}
+
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background: teal;
+}
+
+.error-message {
+  padding: 0.8em 1em;
+  margin-top: 1em;
+  background: #fce8e6;
+  color: #a93226;
+  border: 1px solid #f5ccc7;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
