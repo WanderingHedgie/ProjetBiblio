@@ -5,7 +5,7 @@ import { inject } from '@angular/core';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService: AuthService = inject(AuthService);
 
-  if(req.url.endsWith('/auth')) {
+  if(req.url.endsWith('/auth') || !authService.token) { //if (... || !authService.token) veut dire : « si je n’ai pas de token, j’envoie la requête sans en-tête, au lieu d’envoyer un en-tête vide »
     return next(req);
   }
 
