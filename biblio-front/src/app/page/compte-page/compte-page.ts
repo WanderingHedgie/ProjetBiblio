@@ -5,14 +5,15 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { AsyncPipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { CompteService } from '../../service/compte-service';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
-  imports: [ReactiveFormsModule, AsyncPipe],
+  imports: [ReactiveFormsModule],
   selector: 'app-compte-page',
   styleUrl: './compte-page.css',
   templateUrl: './compte-page.html',
 })
-export class ComptePage {
+export class ComptePage implements OnInit {
   
   private refresh$: Subject<void> = new Subject<void>();
   
@@ -24,7 +25,8 @@ export class ComptePage {
   constructor(
     private title: Title,
     private compteService: CompteService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
   
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class ComptePage {
     });
   }
   
- protected inscrire() {
+  protected inscrire() {
     if (this.formCompteGroup.invalid) {
       return;
     }
@@ -49,6 +51,7 @@ export class ComptePage {
     };
     
     this.compteService.save(compte).subscribe(() => {
+      this.router.navigate(['/login']),
       this.formCompteGroup.reset();
     });
   }
