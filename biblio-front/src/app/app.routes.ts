@@ -8,60 +8,66 @@ import { CollectionPage } from './page/collection-page/collection-page';
 import { EditeurPage } from './page/editeur-page/editeur-page';
 import { AvisPage } from './page/avis-page/avis-page';
 import { LogoutPage } from './page/logout-page/logout-page';
+import { ComptePage } from './page/compte-page/compte-page';
 
 
 export const routes: Routes = [
-
-    {
+  
+  {
     path: 'login',
     component: LoginPage
-    },
-
-    {
+  },
+  
+  {
+    path: 'inscription',
+    component: ComptePage
+  },
+  
+  {
     path: 'home',
     component: HomePage,
     canActivate: [ authGuard ]
-    },
-
-    {
+  },
+  
+  {
     path: 'livre',
     component: LivrePage,
     canActivate: [ authGuard ]
-    },
-
-    {
+  },
+  
+  {
     path: 'auteur',
     component: AuteurPage,
     canActivate: [ authGuard ]
-    },
-
-    {
+  },
+  
+  {
     path: 'collection',
     component: CollectionPage,
     canActivate: [ authGuard ]
-    },
-
-    {
+  },
+  
+  {
     path: 'editeur',
     component: EditeurPage,
     canActivate: [ authGuard ]
-    },
-
-    {
+  },
+  
+  {
     path: 'avis',
     component: AvisPage,
     canActivate: [ authGuard ]
-    },
-
-    {
-      path: 'logout',
-      component: LogoutPage
-    },
-
-    {
-      path: '',
-      pathMatch: 'full',
-      redirectTo: 'home'
-    }
-
+  },
+  
+  {
+    path: 'logout',
+    component: LogoutPage
+  },
+  
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home'
+  }
+  
 ];
